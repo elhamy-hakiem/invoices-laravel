@@ -1,4 +1,4 @@
-.main-header-profile .main-img-user {
+z.main-header-profile .main-img-user {
   &::after {
     content: '';
     position: absolute;
@@ -13,7 +13,7 @@
     display: block !important;
     top: 35px;
 	right:auto
-	
+
   }
 
   display: inline-block;

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreign('invoice_id')->references('id')->on('invoices')->onDelete('cascade');
             $table->date('invoice_Date')->nullable();
             $table->date('Due_date')->nullable();
+            $table->date('payment_date')->nullable();
             $table->string('product', 50);
             $table->bigInteger( 'section_id' )->unsigned();
             $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade');
@@ -28,8 +29,7 @@ return new class extends Migration
             $table->decimal('Value_VAT',8,2);
             $table->string('Rate_VAT', 999);
             $table->decimal('Total',8,2);
-            $table->string('Status', 50);
-            $table->integer('Value_Status');
+            $table->tinyInteger('Status');
             $table->text('note')->nullable();
             $table->string('user',150);
         });

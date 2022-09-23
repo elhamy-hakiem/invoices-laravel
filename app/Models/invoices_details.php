@@ -13,6 +13,7 @@ class invoices_details extends Model
         'invoice_id',
         'invoice_Date',
         'Due_date',
+        'payment_date',
         'product',
         'section_id',
         'Amount_collection',
@@ -22,7 +23,6 @@ class invoices_details extends Model
         'Value_VAT',
         'Total',
         'Status',
-        'Value_Status',
         'note',
         'user'
     ];

@@ -155,12 +155,19 @@ class ProductsController extends Controller
     public function destroy(Request $request)
     {
         $id = $request->id;
-        $deleted = DB::table('products')->where('id',$id)->delete();
-
-        if($deleted)
-            session()->flash('delete','تم حذف المنتج بنجاح');
+        $invoiceProduct = DB::table('invoices_details')->where('product',$id)->first();
+        if(empty($invoiceProduct))
+        {
+            $deleted = DB::table('products')->where('id',$id)->delete();
+            if($deleted)
+                session()->flash('delete','تم حذف المنتج بنجاح');
+            else
+                session()->flash('Error','عفوا هناك خطأ في  حذف المنتج');
+        }
         else
-            session()->flash('Error','عفوا هناك خطأ في  حذف المنتج');
+        {
+            session()->flash('Error','عفوا لايمكن  حذف المنتج لوجوده في فاتورة');
+        }
 
         return redirect('/products');
     }

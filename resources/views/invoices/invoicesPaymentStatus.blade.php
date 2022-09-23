@@ -88,15 +88,6 @@
                 <!--div-->
                 <div class="col-xl-12">
                     <div class="card mg-b-20">
-                        <div class="card-header pb-0">
-                            <div class="d-flex justify-content-between">
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-12 col-xl-12">
-                                        <a class="modal-effect btn btn-outline-primary btn-block" href="{{ route('invoices.create') }}">اضافة فاتورة <i class=" fa fa-plus"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table id="example1" class="table key-buttons text-md-nowrap text-center">
@@ -106,6 +97,11 @@
                                             <th class="border-bottom-0">#</th>
                                             <th class="border-bottom-0">رقم الفاتورة</th>
                                             <th class="border-bottom-0">حالة الفاتورة</th>
+                                            @foreach ($invoices as $invoice )
+                                                @if ($invoice ->payment_date != null)
+                                                    <th class="border-bottom-0">تاريخ الدفع</th>
+                                                @endif
+                                            @endforeach
                                             <th class="border-bottom-0">العمليات</th>
                                         </tr>
                                     </thead>
@@ -124,6 +120,9 @@
                                                         <span style="font-size: 13px !important;" class="badge badge-pill badge-danger">غير مدفوعة</span>
                                                     @endif
                                                 </td>
+                                                @if ($invoice ->payment_date != null)
+                                                    <td>{{$invoice ->payment_date}}</td>
+                                                @endif
                                                 <td>
                                                     {{-- start View button  --}}
                                                     <a class="btn btn-sm btn-success" title="عرض" href="{{ url('invoiceDetails/' . $invoice ->id) }}">

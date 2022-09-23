@@ -143,16 +143,20 @@ class SectionsController extends Controller
     public function destroy(Request $request)
     {
         $id = $request->id;
-
-        $deleted = DB::table('sections')->where('id',$id)->delete();
-        if($deleted)
+        $invoiceSection = DB::table('invoices_details')->where('section_id',$id)->first();
+        if(empty($invoiceSection))
         {
-            session()->flash('delete','تم حذف القسم بنجاج');
+            $deleted = DB::table('sections')->where('id',$id)->delete();
+            if($deleted)
+                session()->flash('delete','تم حذف القسم بنجاح');
+            else
+                session()->flash('Error','عفوا هناك خطأ في  حذف القسم');
         }
         else
         {
-            session()->flash('Error','لقد حدث خطأ في الحذف ');
+            session()->flash('Error','عفوا لايمكن  حذف القسم لوجوده في فاتورة');
         }
+
         return redirect('/sections');
     }
 }
